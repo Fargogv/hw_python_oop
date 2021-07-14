@@ -10,7 +10,7 @@ class Calculator:
         its_now = dt.datetime.now().date()
         its_week_ago = its_now - dt.timedelta(days=7)
         amount = ([record.amount for record in self.records
-                   if its_week_ago <= record.date and record.date <= its_now])
+                   if its_week_ago <= record.date and (record.date <= its_now)])
         return sum(amount)
 
     def add_record(self, record):
