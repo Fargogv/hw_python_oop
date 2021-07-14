@@ -7,10 +7,10 @@ class Calculator:
         self.records = []
 
     def get_week_stats(self):
-        its_now = dt.datetime.now().date()
-        its_week_ago = its_now - dt.timedelta(days=7)
+        it_now = dt.datetime.now().date()
+        it_week_ago = it_now - dt.timedelta(days=7)
         amount = ([record.amount for record in self.records
-                   if its_week_ago <= record.date and (record.date <= its_now)])
+                   if it_week_ago <= record.date and (record.date <= it_now)])
         return sum(amount)
 
     def add_record(self, record):
@@ -40,7 +40,7 @@ class CaloriesCalculator(Calculator):
         total_amount = self.get_today_stats()
         balance = self.limit - total_amount
         if total_amount < self.limit:
-            return ('Сегодня можно съесть что-нибудь ещё,' +
+            return ('Сегодня можно съесть что-нибудь ещё,' 
                     f' но с общей калорийностью не более {balance:.0f} кКал')
         elif total_amount >= self.limit:
             return 'Хватит есть!'
@@ -60,10 +60,10 @@ class CashCalculator(Calculator):
             currency_presentation, exchange_rate = currency_name[currency]
             balance = abs((self.limit - total_amount) / exchange_rate)
             if total_amount < self.limit:
-                return ('На сегодня' +
+                return ('На сегодня' 
                         f' осталось {balance:.2f} {currency_presentation}')
             elif total_amount == self.limit:
                 return 'Денег нет, держись'
             else:
-                return ('Денег нет, держись: твой' +
+                return ('Денег нет, держись: твой' 
                         f' долг - {balance:.2f} {currency_presentation}')
