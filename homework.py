@@ -7,30 +7,32 @@ class Calculator:
         self.records = []
 
     def get_week_stats(self):
-        now = dt.datetime.now().date()
-        week_ago = now - dt.timedelta(days=7)
+        its_now = dt.datetime.now().date()
+        its_week_ago = its_now - dt.timedelta(days=7)
         amount = ([record.amount for record in self.records
-                  if week_ago <= record.date])
+                   if its_week_ago <= record.date and record.date <= its_now ])
         return sum(amount)
 
     def add_record(self, record):
         self.records.append(record)
 
     def get_today_stats(self):
-        now = dt.datetime.now().date()
+        its_now = dt.datetime.now().date()
         amount = ([record.amount for record
-                  in self.records if now == record.date])
+                   in self.records if its_now == record.date])
         return sum(amount)
 
 
 class Record:
-    def __init__(self, amount, comment, date=dt.datetime.now().date()):
+    def __init__(self, amount, comment, date=None):
         self.amount = amount
         self.comment = comment
         date_format = '%d.%m.%Y'
         if isinstance(date, str):
             date = dt.datetime.strptime(date, date_format).date()
         self.date = date
+        if date is None:
+            self.date = dt.datetime.now().date()
 
 
 class CaloriesCalculator(Calculator):
@@ -39,7 +41,7 @@ class CaloriesCalculator(Calculator):
         balance = self.limit - total_amount
         if total_amount < self.limit:
             return ('Сегодня можно съесть что-нибудь ещё,' +
-                    f'но с общей калорийностью не более {balance:.0f} кКал')
+                    f' но с общей калорийностью не более {balance:.0f} кКал')
         elif total_amount >= self.limit:
             return 'Хватит есть!'
 
@@ -59,9 +61,9 @@ class CashCalculator(Calculator):
             balance = abs((self.limit - total_amount) / exchange_rate)
             if total_amount < self.limit:
                 return ('На сегодня' +
-                        f'осталось {balance:.2f} {currency_presentation}')
+                        f' осталось {balance:.2f} {currency_presentation}')
             elif total_amount == self.limit:
                 return 'Денег нет, держись'
             else:
                 return ('Денег нет, держись: твой' +
-                        f'долг - {balance:.2f} {currency_presentation}')
+                        f' долг - {balance:.2f} {currency_presentation}')
