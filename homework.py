@@ -1,13 +1,14 @@
 import datetime as dt
+it_now = dt.datetime.now().date()
 
 
 class Calculator:
+    """Статистика"""
     def __init__(self, limit):
         self.limit = limit
         self.records = []
 
     def get_week_stats(self):
-        it_now = dt.datetime.now().date()
         it_week_ago = it_now - dt.timedelta(days=7)
         amount = ([record.amount for record in self.records
                    if it_week_ago <= record.date and (record.date <= it_now)])
@@ -17,13 +18,13 @@ class Calculator:
         self.records.append(record)
 
     def get_today_stats(self):
-        its_now = dt.datetime.now().date()
         amount = ([record.amount for record
-                   in self.records if its_now == record.date])
+                   in self.records if it_now == record.date])
         return sum(amount)
 
 
 class Record:
+    """Запись данных"""
     def __init__(self, amount, comment, date=None):
         self.amount = amount
         self.comment = comment
@@ -36,6 +37,7 @@ class Record:
 
 
 class CaloriesCalculator(Calculator):
+    """Калькулятор калорий"""
     def get_calories_remained(self):
         total_amount = self.get_today_stats()
         balance = self.limit - total_amount
@@ -47,6 +49,7 @@ class CaloriesCalculator(Calculator):
 
 
 class CashCalculator(Calculator):
+    """Калькулятор денег"""
     USD_RATE = 74.46
     EURO_RATE = 88.29
 
