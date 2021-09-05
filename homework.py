@@ -19,7 +19,7 @@ class Calculator:
     def add_record(self, record):
         self.records.append(record)
 
-    def get_today_stats(self):
+    def get_today_stats(self) -> str:
         amount = ([record.amount for record
                    in self.records if it_now == record.date])
         return sum(amount)
