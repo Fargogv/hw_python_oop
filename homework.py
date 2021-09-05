@@ -16,7 +16,7 @@ class Calculator:
                    if it_week_ago <= record.date and (record.date <= it_now)])
         return sum(amount)
 
-    def add_record(self, record) -> str:
+    def add_record(self, record):
         self.records.append(record)
 
     def get_today_stats(self):
@@ -71,4 +71,4 @@ class CashCalculator(Calculator):
                 return 'Денег нет, держись'
 
             return ('Денег нет, держись: твой'
-                        f' долг - {balance:.2f} {currency_presentation}')
+                    f' долг - {balance:.2f} {currency_presentation}')
