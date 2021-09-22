@@ -72,11 +72,13 @@ class CashCalculator (Calculator):
             'rub': ('руб', 1.0),
         }
         currency_na, currency_rate = currencies[currency]
-        today_cash_remained = round(self.get_today_remained() / currency_rate, 2)
+        today_cash_remained = round(self.get_today_remained()
+                                    / currency_rate, 2)
 
         if today_cash_remained > 0:
             return f'На сегодня осталось {today_cash_remained} {currency_na}'
         elif today_cash_remained < 0:
-            return f'Денег нет, держись: твой долг - {abs(today_cash_remained)} {currency_na}'
+            return f'Денег нет, держись: твой долг - {abs(today_cash_remained)} ' \
+                   f'{currency_na}'
         else:
             return 'Денег нет, держись'
