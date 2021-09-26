@@ -64,7 +64,8 @@ class CaloriesCalculator(Calculator):
         нужно получить сегодня."""
         if self.get_today_remained() > 0:
             return ('Сегодня можно съесть что-нибудь ещё,'
-                    f' но с общей калорийностью не более {self.get_today_remained():.0f} кКал')
+                    f' но с общей калорийностью не более '
+                    f'{self.get_today_remained():.0f} кКал')
         return 'Хватит есть!'
 
 
@@ -76,7 +77,8 @@ class CashCalculator(Calculator):
     RUB_RATE = 1.0
 
     def get_today_cash_remained(self, currency):
-        """сколько ещё денег можно потратить сегодня в рублях, долларах или евро."""
+        """сколько ещё денег можно потратить сегодня
+        в рублях, долларах или евро."""
         currencies = {
             'usd': ('USD', self.USD_RATE),
             'eur': ('Euro', self.EURO_RATE),
