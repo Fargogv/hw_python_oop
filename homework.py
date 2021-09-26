@@ -10,7 +10,8 @@ class Calculator:
         self.records = []
 
     def get_week_stats(self) -> str:
-        """сколько калорий получено за последние 7 дней/Cколько денег потрачено за последние 7 дней."""
+        """Сколько калорий получено за последние 7 дней/
+        Cколько денег потрачено за последние 7 дней."""
         it_now = dt.datetime.now().date()
         it_week_ago = it_now - dt.timedelta(days=7)
         amount = (record.amount for record in self.records
@@ -18,11 +19,13 @@ class Calculator:
         return sum(amount)
 
     def add_record(self, record):
-        """Сохранение новой записи о приёме пищи/Сохранение новой записи о расходах."""
+        """Сохранение новой записи о приёме пищи/
+        Сохранение новой записи о расходах."""
         self.records.append(record)
 
     def get_today_stats(self) -> str:
-        """Сколько калорий уже съедено сегодня/Cколько денег потрачено сегодня."""
+        """Сколько калорий уже съедено сегодня/
+        Cколько денег потрачено сегодня."""
         it_now = dt.datetime.now().date()
         amount = ([record.amount for record
                    in self.records if it_now == record.date])
@@ -57,11 +60,11 @@ class CaloriesCalculator(Calculator):
     """Калькулятор калорий."""
 
     def get_calories_remained(self) -> str:
-        """Сколько ещё калорий можно/нужно получить сегодня."""
+        """Сколько ещё калорий можно/
+        нужно получить сегодня."""
         if self.get_today_remained() > 0:
             return ('Сегодня можно съесть что-нибудь ещё,'
                     f' но с общей калорийностью не более {self.get_today_remained():.0f} кКал')
-
         return 'Хватит есть!'
 
 
