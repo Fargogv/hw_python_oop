@@ -10,7 +10,7 @@ class Calculator:
         self.records = []
 
     def get_week_stats(self) -> str:
-        """Статистика за 7 дней"""
+        """Статистика за 7 дней."""
         it_now = dt.datetime.now().date()
         it_week_ago = it_now - dt.timedelta(days=7)
         amount = (record.amount for record in self.records
@@ -50,7 +50,6 @@ class Record:
         if isinstance(date, str):
             self.date = dt.datetime.strptime(date, date_format).date()
         else:
-            date is None
             self.date = dt.datetime.now().date()
 
 
@@ -60,11 +59,11 @@ class CaloriesCalculator(Calculator):
     def get_calories_remained(self) -> str:
         """Сколько ещё калорий можно/
         нужно получить сегодня."""
-        z = self.get_today_remained()
-        if z > 0:
+        calories_remained = self.get_today_remained()
+        if calories_remained > 0:
             return ('Сегодня можно съесть что-нибудь ещё,'
                     ' но с общей калорийностью не более '
-                    f'{z:.0f} кКал')
+                    f'{calories_remained:.0f} кКал')
         return 'Хватит есть!'
 
 
@@ -76,20 +75,21 @@ class CashCalculator(Calculator):
     RUB_RATE = 1.0
 
     def get_today_cash_remained(self, currency):
-        """сколько ещё денег можно потратить сегодня
+        """Сколько ещё денег можно потратить сегодня
         в рублях, долларах или евро."""
-        if self.get_today_remained() == 0:
+        cash_remained = self.get_today_remained()
+        if cash_remained == 0:
             return 'Денег нет, держись'
         currencies = {
             'usd': ('USD', self.USD_RATE),
             'eur': ('Euro', self.EURO_RATE),
             'rub': ('руб', self.RUB_RATE),
         }
-        currency_na, currency_rate = currencies[currency]
-        today_cash_remained = round(self.get_today_remained()
+        currency_name, currency_rate = currencies[currency]
+        today_cash_remained = round(cash_remained
                                     / currency_rate, 2)
         if today_cash_remained > 0:
-            return f'На сегодня осталось {today_cash_remained} {currency_na}'
+            return f'На сегодня осталось {today_cash_remained} {currency_name}'
         mod = abs(today_cash_remained)
         return ('Денег нет, держись: твой долг '
-                f'- {mod} {currency_na}')
+                f'- {mod} {currency_name}')
