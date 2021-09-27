@@ -25,7 +25,7 @@ class Calculator:
         """Статистика за день"""
         it_now = dt.datetime.now().date()
         amount = (record.amount for record
-                   in self.records if it_now == record.date)
+                  in self.records if it_now == record.date)
         return sum(amount)
 
     def get_today_remained(self) -> float:
@@ -92,5 +92,4 @@ class CashCalculator(Calculator):
             return f'На сегодня осталось {today_cash_remained} {currency_na}'
         mod = abs(today_cash_remained)
         return ('Денег нет, держись: твой долг '
-                    f'- {mod} '
-                    f'{currency_na}')
+                f'- {mod} {currency_na}')
